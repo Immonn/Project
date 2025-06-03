@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo Application</title>
+    <style>
+        body {
+            background-color: rgba(164, 163, 163, 0.852);
+            font-family: Arial, sans-serif;
+        }
+        #input-container {
+            display: flex;
+            justify-content: center;
+            padding-top: 100px;
+        }
+        #button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        #todo-list {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+        }
+        .todo-item {
+            background-color: #fff;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            width: 300px;
+            display: flex;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .todo-item button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 8px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div id="input-container">
+        <input type="text" id="todo-input" placeholder="Enter Your Todo" size="30"> 
+    </div>
+    <div id="button-container">
+        <span style="background-color: rgb(169, 169, 152);border-radius:3px;padding: 8px;cursor: pointer;" onclick="addTodo()">Add Todo</span>
+    </div>
+    <div id="todo-list"></div>
+
+    <script>
+        let ctr = 1;
+
+        function deleteTodo(index) {
+            const element = document.getElementById(index);
+            if (element) {
+                element.remove();
+            }
+        }
+
+        function addTodo() {
+            const inputEl = document.getElementById("todo-input");
+            const value = inputEl.value.trim();
+
+            if (value === "") {
+                alert("Please enter a todo.");
+                return;
+            }
+
+            const newDiv = document.createElement("div");
+            newDiv.setAttribute('id', ctr);
+            newDiv.className = "todo-item";
+            newDiv.innerHTML = `
+                <span>${value}</span>
+                <button onclick="deleteTodo(${ctr})">Delete</button>
+            `;
+
+            document.getElementById("todo-list").appendChild(newDiv);
+            inputEl.value = ""; // clear input
+            ctr++;
+        }
+    </script>
+</body>
+</html>
